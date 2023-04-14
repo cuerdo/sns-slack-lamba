@@ -27,11 +27,11 @@ def lambda_handler(event, context):
     message = json.dumps(event['Records'][0]['Sns']['Message'])
     logger.info("Message: " + str(message))
 
-    alarm_name = json.dumps(data['Records'][0]['Sns']['Message']['AlarmName'])
-    old_state = json.dumps(data['Records'][0]['Sns']['Message']['OldStateValue'])
-    new_state = json.dumps(data['Records'][0]['Sns']['Message']['NewStateValue'])
-    reason = json.dumps(data['Records'][0]['Sns']['Message']['NewStateReason'])
-    account = json.dumps(data['Records'][0]['Sns']['Message']['AWSAccountId'])
+    alarm_name = json.dumps(event['Records'][0]['Sns']['Message']['AlarmName'])
+    old_state = json.dumps(event['Records'][0]['Sns']['Message']['OldStateValue'])
+    new_state = json.dumps(event['Records'][0]['Sns']['Message']['NewStateValue'])
+    reason = json.dumps(event['Records'][0]['Sns']['Message']['NewStateReason'])
+    account = json.dumps(event['Records'][0]['Sns']['Message']['AWSAccountId'])
 
     payload = {"text": " %s state is now %s: %s in Account %s" % (alarm_name, new_state, reason, account)}
     headers = {'Content-Type': "application/json"}
